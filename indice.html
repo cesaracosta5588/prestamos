@@ -145,7 +145,125 @@ Procesando solicitud...
 </div>
 
 </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Préstamos Rápidos</title>
+<style>
 
+body{
+font-family: Arial;
+background:#f4f6f9;
+margin:0;
+text-align:center;
+}
+
+header{
+background:#0a66ff;
+color:white;
+padding:30px;
+}
+
+.container{
+background:white;
+width:400px;
+margin:40px auto;
+padding:25px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+background:#0a66ff;
+color:white;
+border:none;
+padding:12px 20px;
+font-size:16px;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#004ecc;
+}
+
+.whatsapp{
+background:#25D366;
+margin-top:15px;
+}
+
+.resultado{
+font-size:20px;
+margin-top:15px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Préstamos Rápidos</h1>
+<p>Solicita tu préstamo fácil y rápido</p>
+</header>
+
+<div class="container">
+
+<h2>Calculadora de Préstamo</h2>
+
+<input type="number" id="monto" placeholder="Monto del préstamo">
+
+<input type="number" id="meses" placeholder="Plazo en meses">
+
+<button onclick="calcular()">Calcular cuota</button>
+
+<div class="resultado" id="resultado"></div>
+
+<button class="whatsapp" onclick="whatsapp()">Solicitar por WhatsApp</button>
+
+</div>
+
+<script>
+
+function calcular(){
+
+let monto=document.getElementById("monto").value;
+let meses=document.getElementById("meses").value;
+
+let interes=0.20;
+
+let total=monto*(1+interes);
+let cuota=total/meses;
+
+document.getElementById("resultado").innerHTML=
+"Cuota aproximada: $"+cuota.toFixed(2);
+
+}
+
+function whatsapp(){
+
+let monto=document.getElementById("monto").value;
+
+let mensaje="Hola quiero solicitar un préstamo de $"+monto;
+
+window.open("https://wa.me/NUMERO?text="+mensaje);
+
+}
+
+</script>
+
+</body>
+</html>
 </body>
 
 </html>
+
