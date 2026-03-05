@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financiera Capital Express</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #002244, #0055aa);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+}
+h1 {
+    text-align: center;
+    color: #002244;
+}
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background: #ff6600;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+button:hover {
+    background: #e65c00;
+}
+.loader {
+    display: none;
+    text-align: center;
+    margin-top: 15px;
+    color: green;
+    font-weight: bold;
+}
+.footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+    color: #777;
+}
+</style>
+
+<script>
+function enviarFormulario(e) {
+    e.preventDefault();
+
+    var nombre = document.getElementById("nombre").value;
+    var telefono = document.getElementById("telefono").value;
+    var ciudad = document.getElementById("ciudad").value;
+    var monto = document.getElementById("monto").value;
+    var ingreso = document.getElementById("ingreso").value;
+    var comentario = document.getElementById("comentario").value;
+
+    document.getElementById("loader").style.display = "block";
+
+    var mensaje = "Hola, solicito información de préstamo.%0A%0A" +
+                  "Nombre: " + nombre + "%0A" +
+                  "Teléfono: " + telefono + "%0A" +
+                  "Ciudad: " + ciudad + "%0A" +
+                  "Monto: $" + monto + "%0A" +
+                  "Ingreso: $" + ingreso + "%0A" +
+                  "Comentario: " + comentario;
+
+    var numero = "5218133651952"; // CAMBIAR
+    var url = "https://wa.me/" + numero + "?text=" + mensaje;
+
+    setTimeout(function() {
+        window.open(url, "_blank");
+        document.getElementById("formulario").submit();
+    }, 1500);
+}
+</script>
+
+</head>
+<body>
+
+<div class="container">
+<h1>💰 Financiera Capital Express</h1>
+<p class="subtitle">Préstamos rápidos • Respuesta inmediata • Proceso seguro</p>
+
+<form id="formulario" action="https://formsubmit.co/cesarinn5588@gmail.com" method="POST" onsubmit="enviarFormulario(event)">
+    
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nuevo Lead - Solicitud de Prestamo">
+
+<label>Nombre completo</label>
+<input type="text" name="Nombre" id="nombre" required>
+
+<label>Teléfono</label>
+<input type="tel" name="Telefono" id="telefono" required>
+
+<label>Ciudad</label>
+<input type="text" name="Ciudad" id="ciudad" required>
+
+<label>Monto solicitado</label>
+<input type="number" name="Monto" id="monto" required>
+
+<label>Ingreso mensual</label>
+<input type="number" name="Ingreso" id="ingreso" required>
+
+<label>Comentarios</label>
+<textarea name="Comentario" id="comentario"></textarea>
+
+<button type="submit">🚀 Solicitar Evaluación</button>
+
+<div class="loader" id="loader">
+Procesando solicitud...
+</div>
+
+</form>
+
+<div class="footer">
+🔒 Tus datos están protegidos y se utilizan únicamente para evaluación crediticia.
+</div>
+
+</div>
+
+</body>
+</html>
