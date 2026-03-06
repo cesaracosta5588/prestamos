@@ -1,13 +1,15 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Solicitar Préstamo</title>
+<title>Solicitud de Préstamo</title>
 
 <style>
+
 body{
 font-family:Arial;
-background:#f4f6f9;
+background:#f2f2f2;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -20,6 +22,10 @@ padding:30px;
 border-radius:10px;
 width:350px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h2{
+text-align:center;
 }
 
 input,select{
@@ -38,9 +44,32 @@ color:white;
 border:none;
 border-radius:5px;
 font-size:16px;
+cursor:pointer;
 }
-</style>
 
+button:hover{
+background:#1ebe5d;
+}
+
+/* BOTON FLOTANTE */
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+font-size:30px;
+width:60px;
+height:60px;
+border-radius:50%;
+text-align:center;
+line-height:60px;
+text-decoration:none;
+box-shadow:2px 2px 10px rgba(0,0,0,0.3);
+}
+
+</style>
 </head>
 
 <body>
@@ -49,15 +78,16 @@ font-size:16px;
 
 <h2>Solicitar Préstamo</h2>
 
-<form id="prestamoForm">
+<form onsubmit="enviarWhatsApp();return false;">
 
-<input type="text" id="nombre" placeholder="Nombre" required>
+<input type="text" id="nombre" placeholder="Nombre completo" required>
 
 <input type="tel" id="telefono" placeholder="Teléfono" required>
 
 <input type="number" id="monto" placeholder="Monto solicitado" required>
 
-<select id="plazo">
+<select id="plazo" required>
+<option value="">Plazo</option>
 <option>7 días</option>
 <option>15 días</option>
 <option>30 días</option>
@@ -69,79 +99,33 @@ font-size:16px;
 
 </div>
 
+<a href="https://api.whatsapp.com/send?phone=528133651952&text=Hola%20quiero%20información" class="whatsapp" target="_blank">
+💬
+</a>
+
 <script>
 
-document.getElementById("prestamoForm").addEventListener("submit",async function(e){
-
-e.preventDefault();
+function enviarWhatsApp(){
 
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
 let monto=document.getElementById("monto").value;
 let plazo=document.getElementById("plazo").value;
 
-let datos={
-nombre:nombre,
-telefono:telefono,
-monto:monto,
-plazo:plazo
-};
-
-await fetch("https://TU-USUARIO.app.n8n.cloud/webhook/VENTAS",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(datos)
-});
-
-let mensaje="Hola quiero un préstamo%0A"+
+let mensaje="Hola quiero solicitar un préstamo:%0A"+
 "Nombre: "+nombre+"%0A"+
 "Teléfono: "+telefono+"%0A"+
 "Monto: "+monto+"%0A"+
 "Plazo: "+plazo;
 
-let numero="5218133651952";
+let url="https://api.whatsapp.com/send?phone=528133651952&text="+mensaje;
 
-window.open("https://wa.me/"+numero+"?text="+mensaje);
+window.open(url,"_blank");
 
-});
+}
 
 </script>
-```html
-```html
-<!-- BOTON FLOTANTE WHATSAPP -->
-<a href="https://api.whatsapp.com/send?phone=528133651952&text=Hola%20quiero%20informacion" 
-class="whatsapp-float" 
-target="_blank">
 
-💬
-
-</a>
-
-<style>
-
-.whatsapp-float{
-position:fixed;
-width:60px;
-height:60px;
-bottom:25px;
-right:25px;
-background:#25D366;
-color:white;
-border-radius:50%;
-text-align:center;
-font-size:30px;
-line-height:60px;
-box-shadow:2px 2px 10px rgba(0,0,0,0.3);
-z-index:1000;
-text-decoration:none;
-}
-
-.whatsapp-float:hover{
-background:#1ebe5d;
-transform:scale(1.1);
-}
-
-</style>
+</body>
+</html>
 ```
