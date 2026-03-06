@@ -38,7 +38,7 @@ border-radius:5px;
 button{
 width:100%;
 padding:12px;
-background:#28a745;
+background:#25D366;
 color:white;
 border:none;
 border-radius:5px;
@@ -47,7 +47,7 @@ cursor:pointer;
 }
 
 button:hover{
-background:#218838;
+background:#1ebe5d;
 }
 
 </style>
@@ -57,24 +57,24 @@ background:#218838;
 
 <div class="formulario">
 
-<h2>Solicitud de Préstamo</h2>
+<h2>Solicitar Préstamo</h2>
 
 <form id="prestamoForm">
 
-<input type="text" name="nombre" placeholder="Nombre completo" required>
+<input type="text" id="nombre" placeholder="Nombre completo" required>
 
-<input type="tel" name="telefono" placeholder="Teléfono" required>
+<input type="tel" id="telefono" placeholder="Teléfono" required>
 
-<input type="number" name="monto" placeholder="Monto solicitado" required>
+<input type="number" id="monto" placeholder="Monto solicitado" required>
 
-<select name="plazo">
+<select id="plazo">
 <option value="">Plazo</option>
 <option>7 días</option>
 <option>15 días</option>
 <option>30 días</option>
 </select>
 
-<button type="submit">Solicitar Préstamo</button>
+<button type="submit">Enviar Solicitud</button>
 
 </form>
 
@@ -86,14 +86,22 @@ document.getElementById("prestamoForm").addEventListener("submit",function(e){
 
 e.preventDefault();
 
-let datos=new FormData(this);
+let nombre=document.getElementById("nombre").value;
+let telefono=document.getElementById("telefono").value;
+let monto=document.getElementById("monto").value;
+let plazo=document.getElementById("plazo").value;
 
-fetch("TU_WEBHOOK_N8N",{
-method:"POST",
-body:datos
-})
+let mensaje="Hola quiero solicitar un préstamo:%0A"+
+"Nombre: "+nombre+"%0A"+
+"Teléfono: "+telefono+"%0A"+
+"Monto: "+monto+"%0A"+
+"Plazo: "+plazo;
 
-.then(res=>alert("Solicitud enviada"))
+let numero="521XXXXXXXXXX"; 
+
+let url="https://wa.me/"+numero+"?text="+mensaje;
+
+window.open(url,"_blank");
 
 });
 
