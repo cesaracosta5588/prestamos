@@ -5,7 +5,6 @@
 <title>Solicitar Préstamo</title>
 
 <style>
-
 body{
 font-family:Arial;
 background:#f4f6f9;
@@ -21,10 +20,6 @@ padding:30px;
 border-radius:10px;
 width:350px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-h2{
-text-align:center;
 }
 
 input,select{
@@ -43,14 +38,9 @@ color:white;
 border:none;
 border-radius:5px;
 font-size:16px;
-cursor:pointer;
 }
-
-button:hover{
-background:#1ebe5d;
-}
-
 </style>
+
 </head>
 
 <body>
@@ -61,14 +51,13 @@ background:#1ebe5d;
 
 <form id="prestamoForm">
 
-<input type="text" id="nombre" placeholder="Nombre completo" required>
+<input type="text" id="nombre" placeholder="Nombre" required>
 
 <input type="tel" id="telefono" placeholder="Teléfono" required>
 
 <input type="number" id="monto" placeholder="Monto solicitado" required>
 
 <select id="plazo">
-<option value="">Plazo</option>
 <option>7 días</option>
 <option>15 días</option>
 <option>30 días</option>
@@ -82,7 +71,7 @@ background:#1ebe5d;
 
 <script>
 
-document.getElementById("prestamoForm").addEventListener("submit",function(e){
+document.getElementById("prestamoForm").addEventListener("submit",async function(e){
 
 e.preventDefault();
 
@@ -91,17 +80,30 @@ let telefono=document.getElementById("telefono").value;
 let monto=document.getElementById("monto").value;
 let plazo=document.getElementById("plazo").value;
 
-let mensaje="Hola quiero solicitar un préstamo:%0A"+
+let datos={
+nombre:nombre,
+telefono:telefono,
+monto:monto,
+plazo:plazo
+};
+
+await fetch("TU_WEBHOOK_N8N",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(datos)
+});
+
+let mensaje="Hola quiero un préstamo%0A"+
 "Nombre: "+nombre+"%0A"+
 "Teléfono: "+telefono+"%0A"+
 "Monto: "+monto+"%0A"+
 "Plazo: "+plazo;
 
-let numero="5218133651952"; 
+let numero="5218133651952";
 
-let url="https://wa.me/"+numero+"?text="+mensaje;
-
-window.open(url,"_blank");
+window.open("https://wa.me/"+numero+"?text="+mensaje);
 
 });
 
