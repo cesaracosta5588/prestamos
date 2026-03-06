@@ -1,247 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Formulario de Préstamos</title>
-</head>
-
-<body>
-
-<h2>Solicitud de Préstamo</h2>
-
-<form action="TU_WEBHOOK_N8N" method="POST">
-
-<label>Nombre:</label><br>
-<input type="text" name="nombre"><br><br>
-
-<label>Teléfono:</label><br>
-<input type="text" name="telefono"><br><br>
-
-<label>Monto del préstamo:</label><br>
-<input type="number" name="monto"><br><br>
-
-<label>Fecha:</label><br>
-<input type="date" name="fecha"><br><br>
-
-<button type="submit">Enviar</button>
-
-</form>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="es">
-<head>
 <meta charset="UTF-8">
-<title>Préstamos Rápidos Online</title>
+<title>Solicitar Préstamo</title>
 
 <style>
 
 body{
-font-family: Arial;
-margin:0;
-background:#f4f7fb;
+font-family:Arial;
+background:#f4f6f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-header{
-background:#0a4bff;
-color:white;
-padding:40px;
+.formulario{
+background:white;
+padding:30px;
+border-radius:10px;
+width:350px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h2{
 text-align:center;
 }
 
-header h1{
-margin:0;
-font-size:40px;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:30px;
-}
-
-.card{
-background:white;
-padding:25px;
-margin-top:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-
-input{
+input,select{
 width:100%;
-padding:12px;
-margin-top:10px;
-font-size:16px;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:5px;
 }
 
 button{
-background:#0a4bff;
+width:100%;
+padding:12px;
+background:#28a745;
 color:white;
 border:none;
-padding:12px;
-margin-top:15px;
+border-radius:5px;
 font-size:16px;
 cursor:pointer;
-border-radius:6px;
-width:100%;
 }
 
 button:hover{
-background:#0037cc;
-}
-
-.resultado{
-font-size:22px;
-margin-top:15px;
-font-weight:bold;
-color:#0a4bff;
-}
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:15px 20px;
-border-radius:50px;
-font-size:16px;
-text-decoration:none;
+background:#218838;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<header>
-<h1>Préstamos Rápidos</h1>
-<p>Solicita tu dinero en minutos</p>
-</header>
+<div class="formulario">
 
-<div class="container">
+<h2>Solicitud de Préstamo</h2>
 
-<div class="card">
+<form id="prestamoForm">
 
-<h2>Simulador de préstamo</h2>
+<input type="text" name="nombre" placeholder="Nombre completo" required>
 
-<label>Monto del préstamo</label>
-<input type="number" id="monto" placeholder="Ej: 500">
+<input type="tel" name="telefono" placeholder="Teléfono" required>
 
-<label>Plazo (meses)</label>
-<input type="number" id="meses" placeholder="Ej: 6">
+<input type="number" name="monto" placeholder="Monto solicitado" required>
 
-<button onclick="calcular()">Calcular cuota</button>
+<select name="plazo">
+<option value="">Plazo</option>
+<option>7 días</option>
+<option>15 días</option>
+<option>30 días</option>
+</select>
 
-<div class="resultado" id="resultado"></div>
+<button type="submit">Solicitar Préstamo</button>
 
-</div>
-
-<div class="card">
-
-<h2>Solicitar préstamo</h2>
-
-<input type="text" id="nombre" placeholder="Nombre completo">
-
-<input type="text" id="telefono" placeholder="Teléfono">
-
-<input type="number" id="solicitud_monto" placeholder="Monto solicitado">
-
-<button onclick="enviar()">Enviar solicitud</button>
+</form>
 
 </div>
-
-</div>
-
-<a class="whatsapp" href="https://wa.me/8133651952" target="_blank">
-WhatsApp
-</a>
 
 <script>
 
-function calcular(){
+document.getElementById("prestamoForm").addEventListener("submit",function(e){
 
-let monto=document.getElementById("monto").value;
-let meses=document.getElementById("meses").value;
+e.preventDefault();
 
-let interes=0.20;
+let datos=new FormData(this);
 
-let total=monto*(1+interes);
-let cuota=total/meses;
+fetch("TU_WEBHOOK_N8N",{
+method:"POST",
+body:datos
+})
 
-document.getElementById("resultado").innerHTML=
-"Cuota aproximada: $"+cuota.toFixed(2);
+.then(res=>alert("Solicitud enviada"))
 
-}
-
-function enviar(){
-
-let nombre=document.getElementById("nombre").value;
-let telefono=document.getElementById("telefono").value;
-let monto=document.getElementById("solicitud_monto").value;
-
-let mensaje="Solicitud de préstamo%0A"+
-"Nombre: "+nombre+"%0A"+
-"Teléfono: "+telefono+"%0A"+
-"Monto: $"+monto;
-
-window.open("https://wa.me/NUMERO?text="+mensaje);
-
-}
+});
 
 </script>
 
 </body>
-  <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Préstamos Online</title>
-
-<style>
-body{
-font-family: Arial;
-text-align:center;
-margin-top:100px;
-}
-
-.whatsapp{
-position:fixed;
-width:60px;
-height:60px;
-bottom:40px;
-right:40px;
-background-color:#25D366;
-color:white;
-border-radius:50px;
-text-align:center;
-font-size:30px;
-box-shadow:2px 2px 5px #999;
-z-index:100;
-}
-
-.whatsapp img{
-width:35px;
-margin-top:12px;
-}
-</style>
-
-</head>
-
-<body>
-
-<h1>Solicita tu Préstamo</h1>
-<p>Préstamos rápidos y seguros</p>
-
-<a class="whatsapp" href="https://wa.me/521234567890?text=Hola%20quiero%20información%20de%20un%20préstamo" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
-</a>
-
-</body>
 </html>
-</html>
-
-
-
-
