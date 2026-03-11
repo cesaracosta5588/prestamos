@@ -2,40 +2,57 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Solicitar Préstamo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Préstamos Rápidos</title>
 
 <style>
 
 body{
-font-family: Arial;
-background:#f2f2f2;
+font-family:Arial;
+background:linear-gradient(135deg,#0f5132,#198754);
+margin:0;
 display:flex;
-flex-direction:column;
+justify-content:center;
 align-items:center;
-padding-top:60px;
+min-height:100vh;
+color:white;
 }
 
-.form-card{
+.container{
 background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-width:300px;
+color:black;
+padding:30px;
+border-radius:15px;
+width:320px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
 text-align:center;
 }
 
-input, select{
+h1{
+margin-bottom:10px;
+color:#198754;
+}
+
+input,select{
 width:100%;
 padding:10px;
 margin:8px 0;
-border:1px solid #ccc;
 border-radius:6px;
+border:1px solid #ccc;
+}
+
+.total{
+font-size:22px;
+font-weight:bold;
+color:#198754;
+margin:10px 0;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#28a745;
+background:#198754;
 color:white;
 border:none;
 border-radius:6px;
@@ -44,21 +61,22 @@ cursor:pointer;
 }
 
 button:hover{
-background:#218838;
+background:#157347;
 }
 
 .botones{
-margin-top:30px;
+margin-top:15px;
 display:flex;
-gap:10px;
+gap:8px;
+justify-content:center;
 }
 
 .botones a{
-padding:12px 18px;
+padding:10px 14px;
 border-radius:8px;
 color:white;
 text-decoration:none;
-font-weight:bold;
+font-size:14px;
 }
 
 .whatsapp{
@@ -73,7 +91,7 @@ background:#ff9800;
 background:#0072c6;
 }
 
-/* BOTON FLOTANTE */
+/* BOTON WHATSAPP FLOTANTE */
 
 .whatsapp-float{
 position:fixed;
@@ -81,41 +99,101 @@ bottom:25px;
 right:25px;
 background:#25D366;
 color:white;
-font-size:30px;
 width:60px;
 height:60px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
+font-size:28px;
 text-decoration:none;
-box-shadow:0 5px 10px rgba(0,0,0,0.3);
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="form-card">
+<div class="container">
 
-<h2>Solicitar Préstamo</h2>
+<h1>Préstamos Rápidos</h1>
 
-<input type="text" placeholder="Nombre">
+<input type="text" id="nombre" placeholder="Nombre">
 
-<input type="tel" placeholder="Teléfono">
+<input type="tel" id="telefono" placeholder="Teléfono">
 
-<input type="number" placeholder="Monto">
+<input type="number" id="monto" placeholder="Monto" oninput="calcular()">
 
-<select>
-<option>30 días</option>
-<option>60 días</option>
-<option>90 días</option>
+<select id="plazo" onchange="calcular()">
+<option value="1.30">30 días</option>
+<option value="1.60">60 días</option>
+<option value="1.90">90 días</option>
 </select>
 
-<button>Enviar Solicitud</button>
+<div class="total">
+Total a pagar: <span id="total">$0</span>
+</div>
+
+<button onclick="enviarWhatsApp()">Enviar Solicitud</button>
+
+<div class="botones">
+
+<a class="whatsapp" href="https://wa.me/528133651952" target="_blank">WhatsApp</a>
+
+<a class="llamar" href="tel:8133651952">Llamar</a>
+
+<a class="correo" href="mailto:prestamoscesar@gmail.com">Correo</a>
 
 </div>
+
+</div>
+
+<a class="whatsapp-float" href="https://wa.me/528133651952" target="_blank">
+💬
+</a>
+
+<script>
+
+function calcular(){
+
+var monto=document.getElementById("monto").value;
+var plazo=document.getElementById("plazo").value;
+
+var total=monto*plazo;
+
+document.getElementById("total").innerHTML="$"+total;
+
+}
+
+function enviarWhatsApp(){
+
+var nombre=document.getElementById("nombre").value;
+var telefono=document.getElementById("telefono").value;
+var monto=document.getElementById("monto").value;
+var plazo=document.getElementById("plazo").options[document.getElementById("plazo").selectedIndex].text;
+var total=document.getElementById("total").innerText;
+
+var mensaje="Solicitud de préstamo:%0A"+
+"Nombre: "+nombre+"%0A"+
+"Teléfono: "+telefono+"%0A"+
+"Monto: "+monto+"%0A"+
+"Plazo: "+plazo+"%0A"+
+"Total: "+total;
+
+var url="https://wa.me/528133651952?text="+mensaje;
+
+window.open(url,"_blank");
+
+}
+
+</script>
+
+</body>
+</html>
+
+
 
 <div class="botones">
 
@@ -139,3 +217,4 @@ box-shadow:0 5px 10px rgba(0,0,0,0.3);
 
 </body>
 </html>
+
