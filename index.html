@@ -5,31 +5,30 @@
 <title>Solicitar Préstamo</title>
 
 <style>
-
 body{
 font-family: Arial;
 background:#f2f2f2;
 display:flex;
-flex-direction:column;
+justify-content:center;
 align-items:center;
-padding-top:60px;
+height:100vh;
 }
 
-.form-card{
+.formulario{
 background:white;
-padding:25px;
+padding:30px;
 border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-width:300px;
+width:320px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
 text-align:center;
 }
 
-input, select{
+input,select{
 width:100%;
 padding:10px;
 margin:8px 0;
+border-radius:5px;
 border:1px solid #ccc;
-border-radius:6px;
 }
 
 button{
@@ -38,58 +37,31 @@ padding:12px;
 background:#28a745;
 color:white;
 border:none;
-border-radius:6px;
+border-radius:5px;
 font-size:16px;
 cursor:pointer;
 }
 
-button:hover{
-background:#218838;
-}
-
-.botones{
-margin-top:30px;
-display:flex;
-gap:10px;
-}
-
-.botones a{
-padding:12px 18px;
-border-radius:8px;
+.whatsapp{
+margin-top:15px;
+display:block;
+background:#25D366;
 color:white;
+padding:12px;
 text-decoration:none;
+border-radius:5px;
 font-weight:bold;
 }
 
-.whatsapp{
-background:#25D366;
-}
-
-.llamar{
-background:#ff9800;
-}
-
 .correo{
+margin-top:10px;
+display:block;
 background:#0072c6;
-}
-
-/* BOTON FLOTANTE */
-
-.whatsapp-float{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#25D366;
 color:white;
-font-size:30px;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
+padding:12px;
 text-decoration:none;
-box-shadow:0 5px 10px rgba(0,0,0,0.3);
+border-radius:5px;
+font-weight:bold;
 }
 
 </style>
@@ -97,14 +69,12 @@ box-shadow:0 5px 10px rgba(0,0,0,0.3);
 
 <body>
 
-<div class="form-card">
+<div class="formulario">
 
 <h2>Solicitar Préstamo</h2>
 
 <input type="text" placeholder="Nombre">
-
 <input type="tel" placeholder="Teléfono">
-
 <input type="number" placeholder="Monto">
 
 <select>
@@ -115,27 +85,15 @@ box-shadow:0 5px 10px rgba(0,0,0,0.3);
 
 <button>Enviar Solicitud</button>
 
-</div>
-
-<div class="botones">
-
-<a class="whatsapp" href="https://wa.me/528133651952?text=Hola%20quiero%20informacion%20sobre%20un%20prestamo" target="_blank">
-📲 WhatsApp
+<a class="whatsapp" href="https://wa.me/528133651952" target="_blank">
+📱 Enviar por WhatsApp
 </a>
 
-<a class="llamar" href="tel:8133651952">
-📞 Llamar
-</a>
-
-<a class="correo" href="mailto:prestamoscesar@gmail.com?subject=Solicitud de prestamo">
-📧 Correo
+<a class="correo" href="mailto:tucorreo@gmail.com?subject=Solicitud de Prestamo">
+📧 Enviar por Correo
 </a>
 
 </div>
-
-<a class="whatsapp-float" href="https://wa.me/528133651952?text=Hola%20quiero%20informacion%20sobre%20un%20prestamo" target="_blank">
-💬
-</a>
 
 </body>
 </html>
