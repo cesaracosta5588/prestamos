@@ -161,3 +161,25 @@ alert("Solicitud enviada correctamente");
 
 </body>
 </html>
+<script>
+function enviarCorreo(){
+
+let nombre=document.getElementById("nombre").value;
+let telefono=document.getElementById("telefono").value;
+let monto=document.getElementById("monto").value;
+
+let mensaje=
+"Nombre: "+nombre+"%0A"+
+"Telefono: "+telefono+"%0A"+
+"Monto solicitado: "+monto;
+
+let url="https://mail.google.com/mail/?view=cm&fs=1&to=cesaracostamacias397@gmail.com&su=Solicitud de préstamo&body="+mensaje;
+
+window.open(url,"_blank");
+
+}
+</script>
+
+
+
+
