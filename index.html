@@ -92,8 +92,29 @@ font-weight:bold;
 <a class="correo" href="mailto:tucorreo@gmail.com?subject=Solicitud de Prestamo">
 📧 Enviar por Correo
 </a>
+<script>
+document.querySelector("form").addEventListener("submit", async function(e) {
+e.preventDefault();
 
+const data = {
+nombre: document.querySelector("#nombre").value,
+telefono: document.querySelector("#telefono").value,
+monto: document.querySelector("#monto").value
+};
+
+await fetch("TU_URL_WEBHOOK_AQUI", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+});
+
+alert("Solicitud enviada");
+});
+</script>
 </div>
 
 </body>
 </html>
+
