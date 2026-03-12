@@ -2,24 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Solicitar Préstamo</title>
+<title>Préstamos Rápidos</title>
 
 <style>
+
 body{
 font-family: Arial;
-background:#f2f2f2;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+background:#f4f4f4;
+margin:0;
+padding:0;
 }
 
-.formulario{
+.container{
+width:400px;
+margin:40px auto;
 background:white;
-padding:30px;
+padding:25px;
 border-radius:10px;
-width:320px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h2{
 text-align:center;
 }
 
@@ -27,41 +30,33 @@ input,select{
 width:100%;
 padding:10px;
 margin:8px 0;
-border-radius:5px;
 border:1px solid #ccc;
+border-radius:5px;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#28a745;
-color:white;
 border:none;
 border-radius:5px;
+margin-top:10px;
 font-size:16px;
 cursor:pointer;
 }
 
+.enviar{
+background:#28a745;
+color:white;
+}
+
 .whatsapp{
-margin-top:15px;
-display:block;
 background:#25D366;
 color:white;
-padding:12px;
-text-decoration:none;
-border-radius:5px;
-font-weight:bold;
 }
 
 .correo{
-margin-top:10px;
-display:block;
-background:#0072c6;
+background:#007BFF;
 color:white;
-padding:12px;
-text-decoration:none;
-border-radius:5px;
-font-weight:bold;
 }
 
 </style>
@@ -69,90 +64,100 @@ font-weight:bold;
 
 <body>
 
-<div class="formulario">
+<div class="container">
 
 <h2>Solicitar Préstamo</h2>
 
-<input type="text" placeholder="Nombre">
-<input type="tel" placeholder="Teléfono">
-<input type="number" placeholder="Monto">
+<form id="formPrestamo">
 
-<select>
+<label>Nombre completo</label>
+<input type="text" id="nombre" required>
+
+<label>Teléfono</label>
+<input type="tel" id="telefono" required>
+
+<label>Monto solicitado</label>
+<input type="number" id="monto" required>
+
+<label>Plazo</label>
+<select id="plazo">
 <option>30 días</option>
 <option>60 días</option>
 <option>90 días</option>
 </select>
 
-<button>Enviar Solicitud</button>
+<label>Subir INE (foto)</label>
+<input type="file" id="ine">
 
-<a class="whatsapp" href="https://wa.me/528133651952" target="_blank">
-📱 Enviar por WhatsApp
-</a>
+<label>Total a pagar</label>
+<input type="text" id="resultado" readonly>
 
-<a class="correo" href="mailto:cesaracostamacias397@gmail.com?subject=Solicitud de Prestamo">
-📧 Enviar por Correo
-</a>
-<script>
-document.querySelector("form").addEventListener("submit", async function(e) {
-e.preventDefault();
+<button type="button" onclick="calcular()">Calcular pago</button>
 
-const data = {
-nombre: document.querySelector("#nombre").value,
-telefono: document.querySelector("#telefono").value,
-monto: document.querySelector("#monto").value
-};
+<button type="button" class="enviar" onclick="enviarSolicitud()">Enviar solicitud</button>
 
-await fetch("https://cesarinn5588.app.n8n.cloud/web.../clientes-prestamos", {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify(data)
-});
+<button type="button" class="whatsapp" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
 
-alert("Solicitud enviada");
-});
-</script>
+<button type="button" class="correo" onclick="enviarCorreo()">Enviar por Correo</button>
+
+</form>
+
 </div>
+
+<script>
+
+function calcular(){
+
+let monto = document.getElementById("monto").value;
+
+let interes = monto * 0.20;
+
+let total = parseFloat(monto) + interes;
+
+document.getElementById("resultado").value =
+"$" + total;
+
+}
+
+function enviarWhatsApp(){
+
+let nombre=document.getElementById("nombre").value;
+let telefono=document.getElementById("telefono").value;
+let monto=document.getElementById("monto").value;
+
+let mensaje="Solicitud de prestamo%0A"+
+"Nombre: "+nombre+"%0A"+
+"Telefono: "+telefono+"%0A"+
+"Monto: "+monto;
+
+window.open("https://wa.me/528133651952?text="+mensaje);
+
+}
+
+function enviarCorreo(){
+
+let nombre=document.getElementById("nombre").value;
+let telefono=document.getElementById("telefono").value;
+let monto=document.getElementById("monto").value;
+
+let asunto="Solicitud de prestamo";
+
+let mensaje="Nombre: "+nombre+
+"%0D%0ATelefono: "+telefono+
+"%0D%0AMonto: "+monto;
+
+window.location.href=
+"mailto:cesaracostamacias397@gmail.com?subject="+asunto+"&body="+mensaje;
+
+}
+
+function enviarSolicitud(){
+
+alert("Solicitud enviada correctamente");
+
+}
+
+</script>
 
 </body>
 </html>
-<h2>Solicitud de Préstamo</h2>
-
-<form action="mailto:cesaracostamacias397@gmail.com" method="post" enctype="multipart/form-data">
-
-<label>Nombre completo</label><br>
-<input type="text" name="nombre" required><br><br>
-
-<label>Teléfono</label><br>
-<input type="tel" name="telefono" required><br><br>
-
-<label>Monto solicitado</label><br>
-<input type="number" id="monto" name="monto" required><br><br>
-
-<label>Subir INE (foto)</label><br>
-<input type="file" name="ine" accept="image/*"><br><br>
-
-<label>Resultado del préstamo</label><br>
-<input type="text" id="resultado" readonly><br><br>
-
-<button type="button" onclick="calcularPrestamo()">Calcular pago</button>
-<br><br>
-
-<input type="submit" value="Enviar solicitud">
-
-</form>
-<h2>Solicitud de Préstamo</h2>
-
-<form action="mailto:cesaracostamacias397@gmail.com" method="post" enctype="multipart/form-data">
-
-<label>Nombre completo</label><br>
-<input type="text" name="nombre" required><br><br>
-
-<label>Teléfono</label><br>
-<input type="tel" name="telefono" required><br><br>
-
-<label>Monto solicitado</label><br>
-<input type="number" id="monto" name="monto" req
-
-
