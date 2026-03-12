@@ -180,6 +180,49 @@ window.open(url,"_blank");
 }
 </script>
 
+<!DOCTYPE html>
+<html>
+<head>
+<title>Formulario de contacto</title>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("H-7XmCN0rWwJ2MzYw");
+})();
+
+function enviarCorreo(event){
+event.preventDefault();
+
+emailjs.send("service_2t553ey","template_huj9kk9",{
+name: document.getElementById("name").value,
+email: document.getElementById("email").value,
+message: document.getElementById("message").value
+})
+.then(function(){
+alert("Mensaje enviado");
+}, function(error){
+alert("Error: " + JSON.stringify(error));
+});
+}
+</script>
+</head>
+
+<body>
+
+<h2>Contáctanos</h2>
+
+<form onsubmit="enviarCorreo(event)">
+<p><input type="text" id="name" placeholder="Nombre" required></p>
+<p><input type="email" id="email" placeholder="Correo" required></p>
+<p><textarea id="message" placeholder="Mensaje" required></textarea></p>
+<p><button type="submit">Enviar</button></p>
+</form>
+
+</body>
+</html>
+
+
 
 
 
