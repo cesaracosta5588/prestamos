@@ -16,47 +16,52 @@ emailjs.init("H-7XmCN0rWwJ2MzYw");
 
 body{
 font-family:Arial;
-background:#f4f6fb;
+background:#f2f5ff;
 margin:0;
 }
 
 header{
 background:#0d6efd;
 color:white;
-padding:15px;
+padding:18px;
 text-align:center;
-font-size:22px;
+font-size:24px;
+font-weight:bold;
+}
+
+.sub{
+text-align:center;
+padding:10px;
+color:#333;
+font-size:15px;
 }
 
 .container{
 width:420px;
-margin:30px auto;
+margin:20px auto;
 background:white;
 padding:25px;
-border-radius:10px;
-box-shadow:0 0 15px rgba(0,0,0,0.15);
+border-radius:12px;
+box-shadow:0 0 20px rgba(0,0,0,0.15);
 }
 
-input,select{
+input{
 width:100%;
-padding:10px;
-margin:8px 0;
+padding:12px;
+margin:10px 0;
 border:1px solid #ccc;
-border-radius:5px;
+border-radius:6px;
+font-size:15px;
 }
 
 button{
 width:100%;
-padding:12px;
-margin-top:10px;
+padding:14px;
+margin-top:12px;
 border:none;
-border-radius:5px;
+border-radius:6px;
 font-size:16px;
 cursor:pointer;
-}
-
-.calcular{
-background:#ffc107;
 }
 
 .enviar{
@@ -67,6 +72,7 @@ color:white;
 .whatsapp{
 background:#25D366;
 color:white;
+font-weight:bold;
 }
 
 .whatsapp-float{
@@ -75,9 +81,9 @@ bottom:20px;
 right:20px;
 background:#25D366;
 color:white;
-padding:15px;
+padding:16px;
 border-radius:50%;
-font-size:24px;
+font-size:26px;
 text-decoration:none;
 }
 
@@ -87,8 +93,12 @@ text-decoration:none;
 <body>
 
 <header>
-Préstamos Rápidos
+PRÉSTAMOS RÁPIDOS
 </header>
+
+<div class="sub">
+Aprobación rápida • Sin buró • Respuesta inmediata
+</div>
 
 <div class="container">
 
@@ -103,21 +113,9 @@ Préstamos Rápidos
 <label>Monto solicitado</label>
 <input type="number" id="monto">
 
-<label>Plazo</label>
-<select id="plazo">
-<option value="1.20">30 días</option>
-<option value="1.35">60 días</option>
-<option value="1.50">90 días</option>
-</select>
-
-<label>Total a pagar</label>
-<input type="text" id="resultado" readonly>
-
-<button class="calcular" onclick="calcular()">Calcular pago</button>
-
 <button class="enviar" onclick="enviarCorreo()">Enviar solicitud</button>
 
-<button class="whatsapp" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+<button class="whatsapp" onclick="enviarWhatsApp()">💬 Solicitar por WhatsApp</button>
 
 </div>
 
@@ -125,29 +123,35 @@ Préstamos Rápidos
 
 <script>
 
-function calcular(){
+function validar(){
 
+let nombre=document.getElementById("nombre").value;
+let telefono=document.getElementById("telefono").value;
 let monto=document.getElementById("monto").value;
-let interes=document.getElementById("plazo").value;
 
-let total=monto*interes;
+if(nombre=="" || telefono=="" || monto==""){
 
-document.getElementById("resultado").value="$"+total.toFixed(2);
+alert("Por favor llena todos los campos");
+return false;
+
+}
+
+return true;
 
 }
 
 function enviarWhatsApp(){
 
+if(!validar()) return;
+
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
 let monto=document.getElementById("monto").value;
-let total=document.getElementById("resultado").value;
 
-let mensaje="Solicitud de préstamo%0A"+
+let mensaje="Hola, quiero solicitar un préstamo%0A"+
 "Nombre: "+nombre+"%0A"+
 "Teléfono: "+telefono+"%0A"+
-"Monto: "+monto+"%0A"+
-"Total: "+total;
+"Monto solicitado: "+monto;
 
 window.open("https://wa.me/528133651952?text="+mensaje);
 
@@ -155,17 +159,17 @@ window.open("https://wa.me/528133651952?text="+mensaje);
 
 function enviarCorreo(){
 
+if(!validar()) return;
+
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
 let monto=document.getElementById("monto").value;
-let total=document.getElementById("resultado").value;
 
 emailjs.send("service_2t553ey","template_hu9jkk9",{
 
 nombre:nombre,
 telefono:telefono,
-monto:monto,
-total:total
+monto:monto
 
 })
 .then(function(){
@@ -174,7 +178,7 @@ alert("Solicitud enviada correctamente");
 
 }, function(error){
 
-alert("Error: "+JSON.stringify(error));
+alert("Error al enviar");
 
 });
 
