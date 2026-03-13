@@ -2,15 +2,40 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Préstamos Rápidos</title>
+<title>Solicitud de préstamo</title>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("H-7XmCN0rWwJ2MzYw");
+})();
+
+function enviarCorreo(){
+
+let nombre = document.getElementById("nombre").value;
+let telefono = document.getElementById("telefono").value;
+let monto = document.getElementById("monto").value;
+
+emailjs.send("service_2t553ey","template_hu9jkk9",{
+nombre:nombre,
+telefono:telefono,
+monto:monto
+})
+.then(function(){
+alert("Solicitud enviada correctamente");
+}, function(error){
+alert("Error: "+JSON.stringify(error));
+});
+
+}
+</script>
 
 <style>
 
 body{
-font-family: Arial;
+font-family:Arial;
 background:#f4f4f4;
-margin:0;
-padding:0;
 }
 
 .container{
@@ -22,41 +47,19 @@ border-radius:10px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
-h2{
-text-align:center;
-}
-
 input,select{
 width:100%;
 padding:10px;
 margin:8px 0;
-border:1px solid #ccc;
-border-radius:5px;
 }
 
 button{
 width:100%;
 padding:12px;
-border:none;
-border-radius:5px;
 margin-top:10px;
-font-size:16px;
-cursor:pointer;
-}
-
-.enviar{
-background:#28a745;
-color:white;
-}
-
-.whatsapp{
-background:#25D366;
-color:white;
-}
-
-.correo{
 background:#007BFF;
 color:white;
+border:none;
 }
 
 </style>
@@ -66,163 +69,20 @@ color:white;
 
 <div class="container">
 
-<h2>Solicitar Préstamo</h2>
+<h2>Solicitar préstamo</h2>
 
-<form id="formPrestamo">
-
-<label>Nombre completo</label>
-<input type="text" id="nombre" required>
+<label>Nombre</label>
+<input type="text" id="nombre">
 
 <label>Teléfono</label>
-<input type="tel" id="telefono" required>
+<input type="tel" id="telefono">
 
-<label>Monto solicitado</label>
-<input type="number" id="monto" required>
+<label>Monto</label>
+<input type="number" id="monto">
 
-<label>Plazo</label>
-<select id="plazo">
-<option>30 días</option>
-<option>60 días</option>
-<option>90 días</option>
-</select>
-
-<label>Subir INE (foto)</label>
-<input type="file" id="ine">
-
-<label>Total a pagar</label>
-<input type="text" id="resultado" readonly>
-
-<button type="button" onclick="calcular()">Calcular pago</button>
-
-<button type="button" class="enviar" onclick="enviarSolicitud()">Enviar solicitud</button>
-
-<button type="button" class="whatsapp" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
-
-<button type="button" class="correo" onclick="enviarCorreo()">Enviar por Correo</button>
-
-</form>
+<button onclick="enviarCorreo()">Enviar solicitud</button>
 
 </div>
 
-<script>
-
-function calcular(){
-
-let monto = document.getElementById("monto").value;
-
-let interes = monto * 0.20;
-
-let total = parseFloat(monto) + interes;
-
-document.getElementById("resultado").value =
-"$" + total;
-
-}
-
-function enviarWhatsApp(){
-
-let nombre=document.getElementById("nombre").value;
-let telefono=document.getElementById("telefono").value;
-let monto=document.getElementById("monto").value;
-
-let mensaje="Solicitud de prestamo%0A"+
-"Nombre: "+nombre+"%0A"+
-"Telefono: "+telefono+"%0A"+
-"Monto: "+monto;
-
-window.open("https://wa.me/528133651952?text="+mensaje);
-
-}
-
-function enviarCorreo(){
-
-let nombre=document.getElementById("nombre").value;
-let telefono=document.getElementById("telefono").value;
-let monto=document.getElementById("monto").value;
-
-let asunto="Solicitud de prestamo";
-
-let mensaje="Nombre: "+nombre+
-"%0D%0ATelefono: "+telefono+
-"%0D%0AMonto: "+monto;
-
-window.location.href=
-"mailto:cesaracostamacias397@gmail.com?subject="+asunto+"&body="+mensaje;
-
-}
-
-function enviarSolicitud(){
-
-alert("Solicitud enviada correctamente");
-
-}
-
-</script>
-
 </body>
 </html>
-<script>
-function enviarCorreo(){
-
-let nombre=document.getElementById("nombre").value;
-let telefono=document.getElementById("telefono").value;
-let monto=document.getElementById("monto").value;
-
-let mensaje=
-"Nombre: "+nombre+"%0A"+
-"Telefono: "+telefono+"%0A"+
-"Monto solicitado: "+monto;
-
-let url="https://mail.google.com/mail/?view=cm&fs=1&to=cesaracostamacias397@gmail.com&su=Solicitud de préstamo&body="+mensaje;
-
-window.open(url,"_blank");
-
-}
-</script>
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>Formulario de contacto</title>
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
-<script>
-(function(){
-emailjs.init("H-7XmCN0rWwJ2MzYw");
-})();
-
-function enviarCorreo(event){
-event.preventDefault();
-
-emailjs.send("service_2t553ey","template_huj9kk9",{
-name: document.getElementById("name").value,
-email: document.getElementById("email").value,
-message: document.getElementById("message").value
-})
-.then(function(){
-alert("Mensaje enviado");
-}, function(error){
-alert("Error: " + JSON.stringify(error));
-});
-}
-</script>
-</head>
-
-<body>
-
-<h2>Contáctanos</h2>
-
-<form onsubmit="enviarCorreo(event)">
-<p><input type="text" id="name" placeholder="Nombre" required></p>
-<p><input type="email" id="email" placeholder="Correo" required></p>
-<p><textarea id="message" placeholder="Mensaje" required></textarea></p>
-<p><button type="submit">Enviar</button></p>
-</form>
-
-</body>
-</html>
-
-
-
-
-
