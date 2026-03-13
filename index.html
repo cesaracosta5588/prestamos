@@ -110,6 +110,12 @@ Aprobación rápida • Sin buró • Respuesta inmediata
 <label>Teléfono</label>
 <input type="tel" id="telefono">
 
+<label>NSS</label>
+<input type="text" id="nss">
+
+<label>Correo electrónico</label>
+<input type="email" id="correo">
+
 <label>Monto solicitado</label>
 <input type="number" id="monto">
 
@@ -127,9 +133,11 @@ function validar(){
 
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
+let nss=document.getElementById("nss").value;
+let correo=document.getElementById("correo").value;
 let monto=document.getElementById("monto").value;
 
-if(nombre=="" || telefono=="" || monto==""){
+if(nombre=="" || telefono=="" || nss=="" || correo=="" || monto==""){
 
 alert("Por favor llena todos los campos");
 return false;
@@ -146,11 +154,15 @@ if(!validar()) return;
 
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
+let nss=document.getElementById("nss").value;
+let correo=document.getElementById("correo").value;
 let monto=document.getElementById("monto").value;
 
-let mensaje="Hola, quiero solicitar un préstamo%0A"+
+let mensaje="Solicitud de préstamo%0A"+
 "Nombre: "+nombre+"%0A"+
 "Teléfono: "+telefono+"%0A"+
+"NSS: "+nss+"%0A"+
+"Correo: "+correo+"%0A"+
 "Monto solicitado: "+monto;
 
 window.open("https://wa.me/528133651952?text="+mensaje);
@@ -163,12 +175,16 @@ if(!validar()) return;
 
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
+let nss=document.getElementById("nss").value;
+let correo=document.getElementById("correo").value;
 let monto=document.getElementById("monto").value;
 
 emailjs.send("service_2t553ey","template_hu9jkk9",{
 
 nombre:nombre,
 telefono:telefono,
+nss:nss,
+correo:correo,
 monto:monto
 
 })
